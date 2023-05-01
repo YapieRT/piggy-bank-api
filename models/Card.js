@@ -18,6 +18,11 @@ const CardSchema = new mongoose.Schema({
     color: {
         type: String,
         reguired: true,
+    },
+    balance: {
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 
