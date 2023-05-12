@@ -20,6 +20,8 @@ app.post("/createTransfer", TransfersController.createTransfer);
 app.get("/admin/users", AdminController.getAllUsers);
 app.delete("/admin/delete-user/:userId", AdminController.deleteUser);
 
+app.post("/getTransfersById", UserController.getTransfersById);
+
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, (err) => {

@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
-  console.log(req.body);
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json(errors.array());
@@ -89,5 +88,24 @@ export const login = async (req, res) => {
     res.status(500).json({
       message: "Помилка під час авторизації",
     });
+  }
+};
+
+export const getTransfersById = async (req, res) => {
+  try {
+    const token = req.body.token;
+    if (!token) {
+      return res.status(400).json({ message: 'Token is missing' });
+    }
+
+    const decoded = jwt.verify(token, 'secret123');
+    const userId = decoded._id;
+
+
+    const transfers = await Transfers.find({ id_sender: userId});
+    res.json(transfers);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err });
   }
 };

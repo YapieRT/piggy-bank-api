@@ -4,16 +4,16 @@ const TransferSchema = new mongoose.Schema({
   id_sender: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    reguired: true,
+    required: true,
   },
   id_receiver: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    reguired: true,
+    required: true,
   },
   sum_transfer: {
     type: Number,
-    reguired: true,
+    required: true,
   },
 });
 
