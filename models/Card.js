@@ -4,20 +4,20 @@ const CardSchema = new mongoose.Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        reguired: true,
+        required: true,
     },
     type: {
         type: String,
-        reguired: true,
+        required: true,
     },
     number: {
         type: String,
-        reguired: true,
-        unigue: true,
+        required: true,
+        unique: true,
     },
     color: {
         type: String,
-        reguired: true,
+        required: true,
     },
     balance: {
         type: Number,

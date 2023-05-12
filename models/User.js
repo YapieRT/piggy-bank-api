@@ -3,32 +3,32 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        reguired: true,   
+        required: true,   
     },
     surname: {
         type: String,
-        reguired: true,   
+        required: true,   
     },
     birth_date: {
         type: Date,
-        reguired: true,   
+        required: true,   
     },
     address: {
         type: String,
-        reguired: true,   
+        required: true,   
     },
     phone_number: {
         type: String,
-        reguired: true,   
+        required: true,   
     },
     email: {
       type: String,
-      reguired: true,
-      unigue: true,
+      required: true,
+      unique: true,
     },
     passwordHash: {
       type: String,
-      reguired: true,
+      required: true,
     },
   });
   
