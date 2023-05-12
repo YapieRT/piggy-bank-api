@@ -1,5 +1,6 @@
 import { validationResult } from "express-validator";
 import User from "../models/User.js";
+import Transfer from "../models/Transfer.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -101,9 +102,12 @@ export const getTransfersById = async (req, res) => {
     const decoded = jwt.verify(token, 'secret123');
     const userId = decoded._id;
 
-
-    const transfers = await Transfers.find({ id_sender: userId});
-    res.json(transfers);
+    const user = await User.findById(userId);
+    const transfers = await Transfer.find({ $or : [{id_sender: userId}, {id_receiver: userId}] }).populate('id_sender id_receiver', "name surname");
+    res.json({
+      "user": user,
+      "transfers": transfers
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err });
