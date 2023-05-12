@@ -1,23 +1,20 @@
 import mongoose from "mongoose";
 
-const TransfersSchema = new mongoose.Schema({
-  id_transfer: {
+const TransferSchema = new mongoose.Schema({
+  id_sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
-  },
-  id_sender: {
-    type: String,
-    reguired: true,
+    required: true,
   },
   id_receiver: {
-    type: String,
-    reguired: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
   sum_transfer: {
-    type: String,
-    reguired: true,
+    type: Number,
+    required: true,
   },
 });
 
-export default mongoose.model("Transfers", TransfersSchema);
+export default mongoose.model("Transfer", TransferSchema);
