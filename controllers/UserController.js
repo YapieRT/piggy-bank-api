@@ -6,9 +6,10 @@ import jwt from 'jsonwebtoken';
 
 export const existenceCheck = async (req, res) => {
   try {
+    console.log(req.body);
     const errors = validationResult(req);
-    console.log(errors);
-    if (!errors.isEmpty()) return res.status(400).json(errors.array());
+
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     const email = req.body.email;
     const phone_number = req.body.phone_number;

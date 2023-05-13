@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/existenceCheck', RegisterValidator.registerValidator, UserController.register);
+app.post('/existenceCheck', RegisterValidator.registerValidator(), UserController.existenceCheck);
 app.post('/signup', UserController.register);
 app.post('/create-card', CardController.createCard);
 app.post('/login', UserController.login);
