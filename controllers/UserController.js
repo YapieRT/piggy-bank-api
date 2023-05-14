@@ -1,8 +1,10 @@
 import { validationResult } from 'express-validator';
 import User from '../models/User.js';
 import Transfer from '../models/Transfer.js';
+import Card from '../models/Card.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 
 export const existenceCheck = async (req, res) => {
   try {
@@ -119,15 +121,20 @@ export const getTransfersById = async (req, res) => {
     }
 
     const decoded = jwt.verify(token, 'secret123');
+
     const userId = decoded._id;
 
     const user = await User.findById(userId);
+
+    const card = await Card.findOne({ userId: userId });
+
     const transfers = await Transfer.find({ $or: [{ id_sender: userId }, { id_receiver: userId }] }).populate(
       'id_sender id_receiver',
       'name surname'
     );
     res.json({
       user: user,
+      card: card,
       transfers: transfers,
     });
   } catch (err) {

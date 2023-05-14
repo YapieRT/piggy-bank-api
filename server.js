@@ -20,8 +20,6 @@ app.post('/login', UserController.login);
 app.post('/createTransfer', TransfersController.createTransfer);
 app.post('/getTransfersById', UserController.getTransfersById);
 
-app.post('/getTransfersById', UserController.getTransfersById);
-
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, (err) => {

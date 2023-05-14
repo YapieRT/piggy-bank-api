@@ -1,13 +1,16 @@
 import Card from '../models/Card.js';
 import User from '../models/User.js';
+import mongoose from 'mongoose';
 
 export const createCard = async (req, res) => {
   try {
     const userId = req.body.userId;
+
     const type = req.body.cardType;
     const color = req.body.cardColor;
 
-    const IsUser = await User.exists({ _id: userId });
+    const IsUser = await User.findOne({ _id: userId });
+
     if (!IsUser) return res.status(400).json({ message: 'This user does not exist.' });
 
     const HasCard = await Card.find({ userId }).count();
