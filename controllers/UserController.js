@@ -16,17 +16,17 @@ export const existenceCheck = async (req, res) => {
 
     const EmailInUse = await User.findOne({ email });
 
-    if (EmailInUse) return res.status(400).json({ message: 'Дана електронна пошта вже використовується.' });
+    if (EmailInUse) return res.status(400).json({ message: 'This email address is already in use.' });
 
     const PhoneNumberInUse = await User.findOne({ phone_number });
-    if (PhoneNumberInUse) return res.status(400).json({ message: 'Данний номер телефону вже використовується.' });
+    if (PhoneNumberInUse) return res.status(400).json({ message: 'This phone number is already in use.' });
     res.json({
       message: 'Все корректно',
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Не вдалося перевірити дані',
+      message: 'Failed to verify data.',
     });
   }
 };
@@ -74,7 +74,7 @@ export const register = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Не вдалося зареєструватися',
+      message: 'Failed to register.',
     });
   }
 };
@@ -86,13 +86,13 @@ export const login = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
-        message: 'Користувач з такою електронною адресою не знайдений',
+        message: 'User with this email address was not found.',
       });
     }
 
     const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Введено неправильний пароль' });
+      return res.status(400).json({ message: 'Incorrect password entered.' });
     }
 
     const token = jwt.sign({ _id: user._id }, 'secret123', {
@@ -106,7 +106,7 @@ export const login = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Помилка під час авторизації',
+      message: 'An error occurred during authorization.',
     });
   }
 };
