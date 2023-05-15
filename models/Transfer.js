@@ -1,14 +1,12 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const TransferSchema = new mongoose.Schema({
-  id_sender: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+  SenderCard: {
+    type: Number,
     required: true,
   },
-  id_receiver: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+  ReceiverCard: {
+    type: Number,
     required: true,
   },
   sum_transfer: {
@@ -17,4 +15,4 @@ const TransferSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Transfer", TransferSchema);
+export default mongoose.model('Transfer', TransferSchema);

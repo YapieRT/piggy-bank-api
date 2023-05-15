@@ -128,14 +128,13 @@ export const getTransfersById = async (req, res) => {
 
     const card = await Card.findOne({ userId: userId });
 
-    const transfers = await Transfer.find({ $or: [{ id_sender: userId }, { id_receiver: userId }] }).populate(
-      'id_sender id_receiver',
-      'name surname'
-    );
+    const transfers = await Transfer.find({
+      $or: [{ SenderCard: card.number }, { ReceiverCard: card.number }],
+    }).populate('SenderCard ReceiverCard', 'name surname');
     res.json({
       user: user,
       card: card,
-      transfers: transfers,
+      transfers: transfers.reverse(),
     });
   } catch (err) {
     console.log(err);

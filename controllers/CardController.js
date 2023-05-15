@@ -19,8 +19,13 @@ export const createCard = async (req, res) => {
     const count = await Card.countDocuments({ type: type });
 
     const firstNumber = type === 'visa' ? 4 : 5;
-    let len = 15 - String(count + 1).length;
-    const number = firstNumber + '0'.padStart(len, '0') + (count + 1);
+
+    let number = firstNumber;
+    for (let i = 0; i < 15; i++) {
+      const digit = Math.floor(Math.random() * 10);
+
+      number += digit.toString();
+    }
 
     const doc = new Card({
       userId,

@@ -4,25 +4,25 @@ import Card from '../models/Card.js';
 
 export const createTransfer = async (req, res) => {
   try {
-    const { id_sender, id_receiver, sum_transfer } = req.body;
+    const { SenderCard, ReceiverCard, sum_transfer } = req.body;
 
-    if (!id_sender || !id_receiver || !sum_transfer) {
+    if (!SenderCard || !ReceiverCard || !sum_transfer) {
       return res.status(400).json({
         message: 'Failed to create transfer. Check that all required fields are filled.',
       });
     }
 
-    const IsUserSender = await User.exists({ _id: id_sender });
-    if (!IsUserSender) return res.status(400).json({ message: 'This user does not exist.' });
+    const IsCardSender = await Card.exists({ number: SenderCard });
+    if (!IsCardSender) return res.status(400).json({ message: 'Sender card does not exist.' });
 
-    const IsUserReceiver = await User.exists({ _id: id_receiver });
-    if (!IsUserReceiver) return res.status(400).json({ message: 'This user does not exist.' });
+    const IsCardReceiver = await Card.exists({ number: ReceiverCard });
+    if (!IsCardReceiver) return res.status(400).json({ message: 'Receiver card does not exist.' });
 
-    let cardSender = await Card.findOne({ userId: id_sender });
+    let cardSender = await Card.findOne({ number: SenderCard });
     let balanceSender = cardSender.get('balance');
     //console.log(`Sender balance: ${balanceSender}`);
 
-    let cardReceiver = await Card.findOne({ userId: id_receiver });
+    let cardReceiver = await Card.findOne({ number: ReceiverCard });
     let balanceReceiver = cardReceiver.get('balance');
     //console.log(`Receiver balance: ${balanceReceiver}`);
 
